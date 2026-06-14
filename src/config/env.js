@@ -5,7 +5,8 @@ dotenv.config();
 export const env = {
   port: Number(process.env.PORT) || 3001,
   anthropicApiKey: process.env.ANTHROPIC_API_KEY,
-  weatherApiKey: process.env.WEATHER_API_KEY
+  weatherApiKey: process.env.WEATHER_API_KEY,
+  tavilyApiKey: process.env.TAVILY_API_KEY
 };
 
 if (!env.anthropicApiKey) {
