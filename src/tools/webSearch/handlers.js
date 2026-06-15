@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { env } from '../../config/env.js';
+import { createMemoryToolRunner } from '../memory/handlers.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPORTS_DIR = path.join(__dirname, '../../../data/reports');
@@ -106,21 +107,36 @@ function saveReport(filename, content) {
   };
 }
 
-export async function runWebSearchTool(toolName, toolInput) {
-  switch (toolName) {
-    case 'search_web':
-      return searchWeb(toolInput.query, toolInput.max_results ?? 5);
+const MEMORY_TOOLS = new Set([
+  'save_memory',
+  'search_memory',
+  'get_all_memories',
+  'delete_memory'
+]);
 
-    case 'read_url':
-      return readUrl(toolInput.url);
+export function createWebSearchToolRunner(userId) {
+  const runMemoryTool = createMemoryToolRunner(userId);
 
-    case 'search_youtube':
-      return searchYoutube(toolInput.query, toolInput.max_results ?? 5);
+  return async function runWebSearchTool(toolName, toolInput) {
+    if (MEMORY_TOOLS.has(toolName)) {
+      return runMemoryTool(toolName, toolInput);
+    }
 
-    case 'save_report':
-      return saveReport(toolInput.filename, toolInput.content);
+    switch (toolName) {
+      case 'search_web':
+        return searchWeb(toolInput.query, toolInput.max_results ?? 5);
 
-    default:
-      throw new Error(`Unsupported web search tool: ${toolName}`);
-  }
+      case 'read_url':
+        return readUrl(toolInput.url);
+
+      case 'search_youtube':
+        return searchYoutube(toolInput.query, toolInput.max_results ?? 5);
+
+      case 'save_report':
+        return saveReport(toolInput.filename, toolInput.content);
+
+      default:
+        throw new Error(`Unsupported web search tool: ${toolName}`);
+    }
+  };
 }

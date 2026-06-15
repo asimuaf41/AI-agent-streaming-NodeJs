@@ -1,4 +1,7 @@
+import { memoryTools } from '../memory/definitions.js';
+
 export const webSearchTools = [
+  ...memoryTools,
   {
     name: 'search_web',
     description:
