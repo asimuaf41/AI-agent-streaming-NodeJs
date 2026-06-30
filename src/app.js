@@ -1,10 +1,12 @@
 import express from 'express';
-import cors from 'cors';
+import { corsMiddleware, logCorsConfig } from './config/cors.js';
 import { chatRouter } from './routes/chat.routes.js';
 
 const app = express();
 
-app.use(cors());
+logCorsConfig();
+app.use(corsMiddleware);
+app.options(/.*/, corsMiddleware);
 app.use(express.json());
 
 app.get('/health', (_req, res) => {
