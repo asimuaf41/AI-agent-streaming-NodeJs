@@ -14,3 +14,4 @@ app.get('/health', (_req, res) => {
 app.use('/api', chatRouter);
 
 export { app };
+
