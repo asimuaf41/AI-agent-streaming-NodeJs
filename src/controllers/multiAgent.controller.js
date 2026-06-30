@@ -20,7 +20,7 @@ function resolveUserId(req) {
 }
 
 export async function multiAgentStreamController(req, res) {
-  initSse(res);
+  initSse(req, res);
 
   const messages = normalizeMessages(req.body);
   if (!messages) {

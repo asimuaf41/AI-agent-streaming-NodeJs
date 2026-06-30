@@ -1,12 +1,12 @@
 import express from 'express';
-import { corsMiddleware, logCorsConfig } from './config/cors.js';
+import cors from 'cors';
 import { chatRouter } from './routes/chat.routes.js';
 
 const app = express();
 
-logCorsConfig();
-app.use(corsMiddleware);
-app.options(/.*/, corsMiddleware);
+// CORS must be first — before body parser and routes
+app.use(cors());
+app.options(/.*/, cors());
 app.use(express.json());
 
 app.get('/health', (_req, res) => {
@@ -16,4 +16,3 @@ app.get('/health', (_req, res) => {
 app.use('/api', chatRouter);
 
 export { app };
-
