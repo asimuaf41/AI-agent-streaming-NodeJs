@@ -21,7 +21,7 @@ function resolveUserId(req) {
 }
 
 export async function webSearchStreamController(req, res) {
-  initSse(req, res);
+  initSse(res);
 
   const messages = normalizeMessages(req.body);
   if (!messages) {

@@ -2,7 +2,7 @@ import { streamWeatherChat } from '../services/weather.service.js';
 import { endSse, initSse, sendSseData, sendSseError } from '../utils/sse.js';
 
 export async function weatherStreamController(req, res) {
-  initSse(req, res);
+  initSse(res);
 
   const userMessage = req.body?.message;
   if (typeof userMessage !== 'string' || !userMessage.trim()) {

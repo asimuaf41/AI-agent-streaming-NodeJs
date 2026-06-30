@@ -19,7 +19,7 @@ function normalizeMessages(payload) {
 }
 
 export async function realEstateStreamController(req, res) {
-  initSse(req, res);
+  initSse(res);
 
   const messages = normalizeMessages(req.body);
   if (!messages || messages.length === 0) {

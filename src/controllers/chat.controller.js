@@ -14,7 +14,7 @@ function normalizeMessages(payload) {
 }
 
 export async function chatStreamController(req, res) {
-  initSse(req, res);
+  initSse(res);
 
   const messages = normalizeMessages(req.body);
   if (!messages) {
@@ -31,7 +31,7 @@ export async function chatStreamController(req, res) {
 }
 
 export async function chatToolStreamController(req, res) {
-  initSse(req, res);
+  initSse(res);
 
   const userMessage = req.body?.message;
   if (typeof userMessage !== 'string' || !userMessage.trim()) {
