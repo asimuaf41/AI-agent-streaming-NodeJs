@@ -1,17 +1,20 @@
 import express from 'express';
-import cors from 'express-cors';
+import cors from 'cors';
 import { chatRouter } from './routes/chat.routes.js';
 
 const app = express();
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+const corsOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(',').map((origin) => origin.trim())
+  : true;
 
-app.options('*', cors());
-
+app.use(
+  cors({
+    origin: corsOrigins,
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+  })
+);
 app.use(express.json());
 
 app.get('/health', (_req, res) => {
