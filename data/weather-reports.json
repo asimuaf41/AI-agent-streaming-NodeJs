@@ -22,5 +22,11 @@
     "title": "Lahore Weather Report",
     "content": "City: Lahore, Pakistan\n\nTemperature: 41.72°C\nFeels Like: 40.79°C\nCondition: Clear sky\nHumidity: 17%\nWind: 1.63 m/s\n\nReport Status: Live weather data",
     "savedAt": "2026-06-15T09:25:53.278Z"
+  },
+  {
+    "id": 1782890743132,
+    "title": "Lahore Weather Report",
+    "content": "Weather Report for Lahore, Pakistan\n\nTemperature: 42.74°C\nFeels Like: 45.97°C\nCondition: Clear sky\nHumidity: 25%\nWind: 3.12 m/s\n\nReport generated for current conditions.",
+    "savedAt": "2026-07-01T07:25:43.132Z"
   }
 ]

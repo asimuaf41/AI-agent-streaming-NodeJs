@@ -3,6 +3,7 @@ import {
   chatStreamController,
   chatToolStreamController
 } from '../controllers/chat.controller.js';
+import { agentLimiter } from '../middleware/rateLimit.js';
 import {
   deleteRealEstateDocumentController,
   getRealEstateDocumentsController,
@@ -19,24 +20,24 @@ import { multiAgentStreamController } from '../controllers/multiAgent.controller
 
 const router = Router();
 
-router.post('/chat', chatStreamController);
-router.post('/chat/tool', chatToolStreamController);
+router.post('/chat', agentLimiter, chatStreamController);
+router.post('/chat/tool', agentLimiter, chatToolStreamController);
 
-router.post('/chat/weather', weatherStreamController);
+router.post('/chat/weather', agentLimiter, weatherStreamController);
 
-router.post('/chat/web-search', webSearchStreamController);
+router.post('/chat/web-search', agentLimiter, webSearchStreamController);
 router.get('/chat/web-search/memories', getMemoriesController);
 router.delete('/chat/web-search/memories/:id', deleteMemoryController);
 
-router.post('/chat/real-estate', realEstateStreamController);
-router.post('/chat/real-estate/seed', realEstateSeedController);
+router.post('/chat/real-estate', agentLimiter, realEstateStreamController);
+router.post('/chat/real-estate/seed', agentLimiter, realEstateSeedController);
 router.get('/chat/real-estate/documents', getRealEstateDocumentsController);
 router.delete(
   '/chat/real-estate/documents/:sourceFile',
   deleteRealEstateDocumentController
 );
 
-router.post('/chat/multi-agent', multiAgentStreamController);
+router.post('/chat/multi-agent', agentLimiter, multiAgentStreamController);
 
 export { router as chatRouter };
 
